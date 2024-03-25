@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+                <html lang="en">
+                
+                <head>
+                    <meta charset="UTF-8">
+                    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Document</title>
+                </head>
+                
+                
+                <body>
+                    <script defer>
+                        let users = [{
+                                name: "Rajneesh",
+                                age: 34,
+                                address: {
+                                    local: "22 Alaknanda",
+                                    city: "Dehradun",
+                                    state: "UK",
+                                },
+                                orders: [{
+                                    id: 1,
+                                    name: "GOT Book Series"
+                                }],
+                            },
+                            {
+                                name: "Bhavesh",
+                                age: 37,
+                                address: {
+                                    local: "48 DT Row",
+                                    city: "Hyderabad",
+                                    state: "AP",
+                                },
+                            },
+                            {
+                                name: "Jasbir",
+                                age: 38,
+                                address: {
+                                    local: "196 Lama Bhavan",
+                                    city: "Gangtok",
+                                    state: "Sikkim",
+                                },
+                                orders: [{
+                                        id: 1,
+                                        name: "Chair"
+                                    },
+                                    {
+                                        id: 2,
+                                        name: "PS5"
+                                    },
+                                ],
+                            },
+                        ];
+                    </script>
+                    <!-- Write your code solution here, inside the updateUsers function -->
+                    <!-- WARNING:
+                        Don't make any changes outside the given function. (would fail test cases)
+                        Write the required code and return the correct answer. -->
+                    <script id='solution'>
+                        function updateUsers(users, userObject, item) {
+                            //write your code here
+                            let inputUsers = users || [];
+                            let inputObject = userObject || {};
+                            let currentUserName = !!inputObject.name && inputObject.name || 'noUserNameInput';
+                            let inputUsersLength = inputUsers.length || 0;
+                            let inputItem = item || '';
+                            let userExist = false;
+                            for (let index = 0 ; index < inputUsersLength; index++) {
+                                let currentUserObj = inputUsers[index];
+                                if(currentUserObj.name === currentUserName && currentUserName !== 'noUserNameInput') {
+                                   userExist = true;
+                                   break;
+                                }
+                            }
+                            if(!userExist) {
+                                inputUsers.push(inputObject);
+                                    if(!!inputItem) {
+                                        let newObject = {};
+                                        if(!!inputObject.orders && inputObject.orders.isArray()) {
+                                            let inputOrdersArray = inputObject.orders || [];
+                                            let idCount = 0;
+                                            let itemAlreadyExist = false;
+                                            for (const itemObj of inputOrdersArray) {
+                                               let id = !!itemObj.id && itemObj.id;
+                                               let orderItem = !!itemObj.name && itemObj.name;
+                                               if(orderItem === inputItem) {
+                                                  itemAlreadyExist = true;
+                                                  break;
+                                               }
+                                               idCount = id; 
+                                            }
+                                            if(!itemAlreadyExist) {
+                                                newObject.id = idCount++;
+                                                newObject.name = inputItem;
+                                                inputObject.orders.push(newObject);
+                                            }
+
+                                        } else {
+                                            inputObject.orders = [];
+                                            newObject.id = 0;
+                                            newObject.name = inputItem;
+                                            inputObject.orders.push(newObject);
+                                        }
+                                    }
+                            }
+
+                            return inputUsers;
+                        }
+                    </script>
+                </body>
+                
+</html>

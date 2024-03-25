@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>WebRTC Example</title>
+  </head>
+  <body>
+       <!-- Include Socket.IO from a CDN -->
+       <script src="https://cdn.socket.io/4.0.1/socket.io.js"></script>
+
+    <script>
+      const socket = io();
+
+      const roomID = prompt('Enter room ID:');
+      socket.emit('join-room', roomID);
+
+      socket.on('user-connected', (userID) => {
+        console.log('User connected:', userID);
+      });
+
+      socket.on('user-disconnected', (userID) => {
+        console.log('User disconnected:', userID);
+      });
+
+      // Create a WebSocket connection
+const ws = new WebSocket('wss://echo.websocket.org');
+
+// Event handler for when the connection is open
+ws.onopen = function(event) {
+  console.log('WebSocket connection opened.');
+  // Send a message when the connection is established
+  ws.send('Hello, WebSocket!');
+};
+
+// Event handler for incoming messages
+ws.onmessage = function(event) {
+  console.log('Received message:', event.data);
+};
+
+// Event handler for errors
+ws.onerror = function(event) {
+  console.error('WebSocket error:', event);
+};
+
+// Event handler for when the connection is closed
+ws.onclose = function(event) {
+  console.log('WebSocket connection closed.');
+};
+
+
+    </script>
+  </body>
+</html>

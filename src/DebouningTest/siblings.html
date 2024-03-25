@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<!-- 
+    Don't make any changes to the HTML CODE.
+    Just write the solution code in the designated sript tag
+-->
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            padding-top: 5rem;
+        }
+
+        .red {
+            background-color: red;
+        }
+
+        .card {
+            border: 1px solid;
+            height: 10rem;
+            width: 10rem;
+            margin: 2rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">0</div>
+        <div class="card">1</div>
+        <div class="card">2</div>
+        <div class="card">3</div>
+        <div class="card">4</div>
+        <div class="card red">5</div>
+        <div class="card">6</div>
+        <div class="card">7</div>
+        <div class="card">8</div>
+        <div class="card">9</div>
+    </div>
+
+    <div>
+        <button id="btn">Click me</button>
+    </div>
+    <script>
+        //  Write solution here ==============================
+        let testElement = document.querySelector('div.red');
+        let btnElement = document.querySelector('#btn');
+
+        function deleteSiblings(node) {
+
+            if(!!node && !!node.parentNode) {
+                let siblingsList = node.parentNode?.children;
+                let siblingsSize = siblingsList?.length || 0;
+
+                for (let index = 0; index < siblingsSize; index++ ) {
+
+                    if(!!siblingsList[index] && siblingsList[index].textContent != node.textContent) {
+                        siblingsList[index].remove();
+                    }
+                    
+                }
+                
+            }
+            
+        }
+        
+
+        btnElement.addEventListener('click', function(event) {
+            deleteSiblings(testElement);
+        });
+    </script>
+</body>
+
+</html>
